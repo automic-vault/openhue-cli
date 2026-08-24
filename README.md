@@ -1,3 +1,23 @@
+# Automic Vault Fork Notes
+
+This repository is the Automic Vault fork of OpenHue CLI.
+
+Automic Vault is a macOS-first system that keeps developer credentials in
+custody and applies them only after policy or the user allows the complete
+operation requested by verified software.
+
+The [OpenHue CLI Isotope work](https://github.com/automic-vault/automic-vault/pull/193)
+routes the Hue application key through Automic Vault's authenticated XPC
+service while retaining only non-secret bridge configuration and a marker on
+disk. Automic Vault's reviewed release workflow builds and signs the pinned
+executable with Hardened Runtime; the Hardener verifies its release digest and
+Automic Vault signature before installation.
+
+This source fork alone does not establish Hardened State. The remainder of this
+README is the original upstream OpenHue CLI README.
+
+---
+
 # OpenHue CLI
 [![Build](https://github.com/openhue/openhue-cli/actions/workflows/build.yml/badge.svg)](https://github.com/openhue/openhue-cli/actions/workflows/build.yml)
 [![CodeQL](https://github.com/openhue/openhue-cli/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/openhue/openhue-cli/actions/workflows/github-code-scanning/codeql)
