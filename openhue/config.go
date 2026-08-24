@@ -73,6 +73,9 @@ func (c *Config) Load() {
 	c.Bridge = viper.GetString("Bridge")
 	c.Key = viper.GetString("Key")
 	c.LogLevel = viper.GetString("log_level")
+	if err := c.hydrateAV(); err != nil {
+		panic(err)
+	}
 	logger.Init(filepath.Join(configPath, "openhue.log"), c.LogLevel)
 }
 
@@ -85,9 +88,12 @@ func (c *Config) Save() (string, error) {
 	if len(c.Key) == 0 {
 		return "", errors.New("'key' value not set in config")
 	}
+	if err := c.storeAV(); err != nil {
+		return c.GetConfigFile(), err
+	}
 
 	viper.Set("Bridge", c.Bridge)
-	viper.Set("Key", c.Key)
+	viper.Set("Key", avMarker)
 
 	err := viper.SafeWriteConfig()
 	if err != nil {
